@@ -1,0 +1,9 @@
+.pytest_cache/*
+myenv/*
+.env
+.vscode/
+__pycache__/
+./tests/__pycache__/
+./pages/__pycache__/
+./*.pyc
+./*.pyo
