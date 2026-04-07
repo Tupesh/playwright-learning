@@ -8,15 +8,18 @@ load_dotenv()
 email = os.getenv("TEST_EMAIL")
 password = os.getenv("TEST_PASSWORD")
 base_url = os.getenv("BASE_URL")
-
+full_name = os.getenv("SIGNUP_FULL_NAME")
+signup_email = os.getenv("SIGNUP_TEST_MAIL")
 
 
 @pytest.fixture(scope="session")
 def browser():
    with sync_playwright() as p:
-       browser = p.chromium.launch(headless=False)
-       yield browser
-       browser.close()
+      #  browser = p.chromium.launch(headless=False)
+      browser= p.firefox.launch(headless=False)
+      # browser = p.webkit.launch(headless=False)
+      yield browser
+      browser.close()
 
 @pytest.fixture
 def page(browser):
