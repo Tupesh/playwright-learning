@@ -3,7 +3,6 @@ from pages.login_page import LoginPage
 from conftest import *
 from playwright.sync_api import Page, expect
 
-
 def generate_random_number() -> int:
     return random.randint(500000, 10000000)
 
@@ -12,7 +11,11 @@ def generate_random_number() -> int:
 homeprice = generate_random_number()
 
 def rebate_amount() :
-    return (homeprice*0.015)
+    realty_rebate = round(homeprice * 0.01, 2)
+    mortgage_rebate = round(homeprice * 0.005, 2)
+    total = realty_rebate + mortgage_rebate
+    return total
+    # return (homeprice*0.015)
 
 def test_save_search(page):
 
@@ -34,7 +37,6 @@ def test_save_search(page):
  
     expect(page.get_by_role("main")).to_contain_text("Your reAlpha Savings")
 
-
     expect(page.get_by_text("Buying with reAlpha")).to_be_visible()
 
     page.get_by_role("button", name="Edit").click()
@@ -43,7 +45,4 @@ def test_save_search(page):
 
     expect(page.get_by_role("main")).to_contain_text(f"Buying with reAlpha increasesyour buying power by${rebate_amount():,.2f}")
 
-
     expect(page.get_by_label("Notifications alt+T").get_by_role("listitem")).to_contain_text("Rebate amount updated successfully")
-
-    page.wait_for_timeout(5000)
