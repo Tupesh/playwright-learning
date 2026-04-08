@@ -161,6 +161,4 @@ Make sure the virtual environment is properly activated and you have execute per
 ### Tests failing to find base URL
 Check `conftest.py` for fixture configurations and ensure the application is running on the expected URL
 
-## License
 
-[Add your license information here]
