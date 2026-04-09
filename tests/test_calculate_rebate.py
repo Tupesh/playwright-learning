@@ -4,15 +4,15 @@ from conftest import *
 from playwright.sync_api import Page, expect
 
 def generate_random_number() -> int:
-    return random.randint(500000, 10000000)
+    return (random.randint(500, 10000)*1000)
 
 
 
 homeprice = generate_random_number()
 
 def rebate_amount() :
-    realty_rebate = round(homeprice * 0.01, 2)
-    mortgage_rebate = round(homeprice * 0.005, 2)
+    realty_rebate = homeprice * 0.01
+    mortgage_rebate = homeprice * 0.005
     total = realty_rebate + mortgage_rebate
     return total
     # return (homeprice*0.015)
@@ -33,7 +33,7 @@ def test_save_search(page):
     page.get_by_role("button", name="Continue").click()
     page.get_by_role("button", name="Continue").click()
 
-    expect(page.get_by_role("main")).to_contain_text("Good afternoon, Automation")
+    expect(page.get_by_role("main")).to_contain_text("Good evening, Automation")
  
     expect(page.get_by_role("main")).to_contain_text("Your reAlpha Savings")
 
@@ -43,6 +43,6 @@ def test_save_search(page):
     page.get_by_role("textbox", name="What is your target home").fill(str(homeprice))
     page.get_by_role("button", name="Save").click()
 
-    expect(page.get_by_role("main")).to_contain_text(f"Buying with reAlpha increasesyour buying power by${rebate_amount():,.2f}")
+    expect(page.get_by_role("main")).to_contain_text(f"Buying with reAlpha increasesyour buying power by${rebate_amount():,.0f}")
 
     expect(page.get_by_label("Notifications alt+T").get_by_role("listitem")).to_contain_text("Rebate amount updated successfully")
